@@ -98,6 +98,8 @@ const browser = await pupeteer.launch({headless:false,
 }
   )
 
+  try{
+
 // const context = await browser.createIncognitoBrowserContext();
 const page = await browser.newPage();
 const domain = "https://internshala.com/login/user"
@@ -374,7 +376,11 @@ console.log(FilteredCount)
        await  Tmp.findOneAndUpdate({_id:Data[e]._id},{finished:new Date().getDate(),current:false})
     
     }
-    working = false  
+    working = false 
+  }catch(err){
+    working = false 
+    browser.close()
+  } 
           // await page.click('#select_all')
           // await delay(500)
           // await page.click('#group_assignment')
