@@ -55,7 +55,7 @@
                         <td><%= item.url %></td>
                         <td><%= item?.skill?.toString() %></td>
                         <td><%= item?.degree %></td>
-                        <td><%= item?.current %></td>
+                        <td><%= item?.current == true ? working == true ? 'working' :'Error' : item?.finished == new Date().getDate() ?  'finished' : 'not started'  %></td>
                         <td><button class="btn btn-danger" name="delete" onclick="del('<%= item._id %>')">Delete</button></td>
                     </tr>
                 <% 
@@ -77,7 +77,7 @@
                         })
                         const resp = await fetchData.json()
                         if(resp.status == 1){
-                            alert("Restarted Successfully")
+                            alert(resp.msg)
                         }
                     })
                     button[0].addEventListener("click",async()=>{

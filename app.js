@@ -3,6 +3,7 @@ const express = require("express")
 const app = express()
 const cron = require("node-cron")
 const mongoose = require("mongoose")
+
 require("dotenv").config()
 function delay(time) {
   return new Promise(function(resolve) { 
@@ -10,6 +11,8 @@ function delay(time) {
   });
 }
 const multer = require("multer")
+
+global.working = false 
 
 
 mongoose.connect(process.env.MONGO_URL,{
@@ -25,7 +28,7 @@ app.get("/",(req,res)=>{
     Tmp.find().then((data)=>{
       
       console.log(data)
-      res.render("index",{data})
+      res.render("index",{data,working})
   })
 })
 app.post("/senddata",multer().array(),async(req,res)=>{
@@ -69,11 +72,18 @@ app.post("/deletedata",multer().array(),async(req,res)=>{
 })
 app.post("/restart",multer().array(),async(req,res)=>{
   try{
+    console.log(working)
+if(working == false){
 
-    res.json({status:1,msg:'restarted succefully'})
-    await login()
+  working = true
+  res.json({status:1,msg:'restarted succefully'})
+  await login()
+}else{
+  res.json({status:1,msg:'already working'})
+}
   }catch(err){
     console.log(err)
+    working = false
     //  return res.json({status:0,message:"Internal Server Error"})
   }
 })
@@ -108,7 +118,8 @@ const domain = "https://internshala.com/login/user"
      
      await page.waitForSelector("#internships_tbody")
 
-      const Data = await Tmp.find().sort({})
+      const Data = await Tmp.find({finished:{$ne: new Date().getDate()}}).sort({})
+      console.log(Data.length)
     // const Data = [{
     //   url:"https://internshala.com/employer/applications/2232471/1/invite"
     // },{
@@ -118,9 +129,9 @@ const domain = "https://internshala.com/login/user"
 
      for(let e=0;e<Data.length;e++){
        await page.goto(Data[e].url)
-       await  Tmp.findOneAndUpdate({_id:Data[e]._id},{currnet:true})
-       const countElement  = await page.waitForSelector("#invited_applications_count") 
+       await  Tmp.findOneAndUpdate({_id:Data[e]._id},{current:true})
        
+       const countElement  = await page.waitForSelector("#invited_applications_count") 
        await delay(5000)
        var existSkill = await countElement.evaluate((el) => el.textContent)
       // const getExhust = await page.waitForSelector(".access_db_limit_exhausted") 
@@ -229,10 +240,14 @@ console.log(FilteredCount)
     //     exists = await page.$eval("div.individual_application", () => false).catch(() => true)
     //     console.log(exists)
     //  }
-    
-     if(parseInt(existSkill)>0){
+      await delay(3000)
+      await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
+      await delay(3000)
+    const countElement1  = await page.waitForSelector("#invited_applications_count") 
+       
+       var existSkill1 = await countElement1.evaluate((el) => el.textContent)
+     if(parseInt(existSkill1)>0){
 
-        
        await page.waitForSelector(".clear_filter_form_only")
        await page.click(".clear_filter_form_only")
        await delay(500)
@@ -356,10 +371,10 @@ console.log(FilteredCount)
         await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
       }
       await delay(5000)
-       await  Tmp.findOneAndUpdate({_id:Data[e]._id},{finished:new Date(),current:false})
+       await  Tmp.findOneAndUpdate({_id:Data[e]._id},{finished:new Date().getDate(),current:false})
     
     }
-        
+    working = false  
           // await page.click('#select_all')
           // await delay(500)
           // await page.click('#group_assignment')
@@ -370,10 +385,14 @@ console.log(FilteredCount)
 }
 cron.schedule("* 10 * * *",async()=>{
    try{
+    if(working != true){
 
-    await login()
+      working = true
+      await login()
+    }
    }catch(error){
       console.log(error)
+      working = false
    }
 })
 
