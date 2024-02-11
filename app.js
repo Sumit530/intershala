@@ -133,7 +133,9 @@ const domain = "https://internshala.com/login/user"
 
      for(let e=0;e<Data.length;e++){
        await page.goto(Data[e].url)
+       console.log('url ')
        await  Tmp.findOneAndUpdate({_id:Data[e]._id},{current:true})
+       console.log('updated')
        
        const countElement  = await page.waitForSelector("#invited_applications_count") 
        await delay(5000)
