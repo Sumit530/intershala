@@ -113,20 +113,25 @@ const domain = "https://internshala.com/login/user"
       timeout: 3000000
     });
     console.log('opend')
-    await page.waitForSelector("#employer")
-    await page.click("#employer")
-    await page.waitForSelector('input[type="email"]')
-    await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
-    await page.type('input[type="password"]','Tasti$420',{delay:100})
-    await delay(2000)
-    await page.click('#login_submit',{count:2,delay:1000})
-    console.log('login')
-    await delay(2000)
-     
+    var isLoged = false
+    while(isLoged == false){
+
+      await page.waitForSelector("#employer")
+      await page.click("#employer")
+      await page.waitForSelector('input[type="email"]')
+      await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
+      await page.type('input[type="password"]','Tasti$420',{delay:100})
+      await delay(2000)
+      await page.click('#login_submit',{count:2,delay:1000})
+      console.log('login')
+      await delay(2000)
+      isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
+      console.log('trying')
+    }
+    
+    await page.waitForSelector("#internships_tbody")
     
     await page.screenshot({ path: 'fullpage.png', fullPage: true });
-    await page.waitForSelector("#internships_tbody")
-
       const Data = await Tmp.find({finished:{$ne: new Date().getDate()}}).sort({})
       console.log(Data.length)
     // const Data = [{
