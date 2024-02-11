@@ -90,7 +90,7 @@ if(working == false){
 
 const login = async() => {
 const url = "ws://localhost:9222/devtools/browser/a5e90073-bd04-4f73-ab37-208aa46a93c4"
-const browser = await pupeteer.launch({headless:'new',
+const browser = await pupeteer.launch({headless:false,
   browserWSEndpoint:url,
    args: ["--no-sandbox"]
   // executablePath:"C:/Program Files (x86)/AVAST Software/Browser/Application/AvastBrowser.exe"
@@ -128,20 +128,33 @@ const domain = "https://internshala.com/login/user"
     isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
     while(isLoged == false){
       
-      await page.waitForSelector(".close_action")
-      await page.click('.close_action',{count:1,delay:1000})
+      await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
+      await delay(3000)
+      await page.waitForSelector("#employer")
+    await page.click("#employer")
+    await page.waitForSelector('input[type="email"]')
+    await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
+    await page.type('input[type="password"]','Tasti$420',{delay:100})
+    await delay(2000)
+    await page.click('#login_submit',{count:2,delay:1000})
+    console.log('login')
+    await delay(2000)
+    console.log('looking')
+      // await page.waitForSelector(".close_action")
+      // await page.click('.close_action',{count:1,delay:1000})
       
-      console.log('closed')
-      await delay(2000)
+      // console.log('closed')
+      // await delay(2000)
       
-      console.log('trying')
-      await delay(2000)
-      await page.click('#login_submit',{count:2,delay:1000})
-      console.log('login')
-      await delay(2000)
-      console.log('looking')
-      console.log(await page.content());
+      // console.log('trying')
+      // await delay(2000)
+      // await page.click('#login_submit',{count:2,delay:1000})
+      // console.log('login')
+      // await delay(2000)
+      // console.log('looking')
+      // console.log(await page.content());
       await page.screenshot({ path: 'fullpage.png', fullPage: true });
+
       isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
       // pupeteer.Keyboard.press('Escape')
       // await page.keyboard.press('Escape');
@@ -229,7 +242,7 @@ let repeat = 0
         repeat = repeat+1
       }
       
-    } while (postCount < FilteredCount || repeat<4);
+    } while (postCount < FilteredCount && repeat<4);
 
     await delay(2000)
     await page.evaluate(() => {
