@@ -120,6 +120,9 @@ const domain = "https://internshala.com/login/user"
     await page.type('input[type="password"]','Tasti$420',{delay:100})
      await page.click('#login_submit')
      console.log('login')
+     
+      await page.screenshot({ path: 'fullpage.png', fullPage: true });
+
      await page.waitForSelector("#internships_tbody")
 
       const Data = await Tmp.find({finished:{$ne: new Date().getDate()}}).sort({})
