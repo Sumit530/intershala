@@ -133,11 +133,11 @@ const domain = "https://internshala.com/login/user"
       isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
       console.log('trying')
       await delay(2000)
+      await page.screenshot({ path: 'fullpage.png', fullPage: true });
     }
     
     await page.waitForSelector("#internships_tbody")
     
-    await page.screenshot({ path: 'fullpage.png', fullPage: true });
       const Data = await Tmp.find({finished:{$ne: new Date().getDate()}}).sort({})
       console.log(Data.length)
     // const Data = [{
