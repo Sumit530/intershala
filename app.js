@@ -100,9 +100,9 @@ const browser = await pupeteer.launch({headless:'new',
   )
 
   try{
-
-// const context = await browser.createIncognitoBrowserContext();
-const page = await browser.newPage();
+    // const context = await browser.createIncognitoBrowserContext();
+    const page = await browser.newPage();
+    console.log('started')
 const domain = "https://internshala.com/login/user"
     // navigate to a website and set the viewport
     await page.setUserAgent(
