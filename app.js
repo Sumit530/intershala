@@ -125,6 +125,8 @@ const domain = "https://internshala.com/login/user"
       await page.click('#login_submit',{count:2,delay:1000})
       console.log('login')
       await delay(2000)
+      await page.waitForSelector(".close_action")
+      await page.click('.close_action',{count:1,delay:1000})
       isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
       console.log('trying')
     }
