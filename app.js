@@ -116,6 +116,7 @@ const domain = "https://internshala.com/login/user"
 //   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36'
 // );
     await page.setViewport({ width: 1520, height: 1080 });
+    
     await page.goto(domain, {
       timeout: 3000000
     });
@@ -133,6 +134,7 @@ const domain = "https://internshala.com/login/user"
     await delay(2000)
     console.log('looking')
     isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
+    console.log(new Date())
     while(isLoged == false){
       
     //   // await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
