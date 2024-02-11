@@ -179,6 +179,7 @@ const domain = "https://internshala.com/login/user"
     }
     
     await page.waitForSelector("#internships_tbody")
+    console.log('after')
     
       const Data = await Tmp.find({finished:{$ne: new Date().getDate()}}).sort({})
       console.log(Data.length)
