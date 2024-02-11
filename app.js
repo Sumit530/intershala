@@ -92,7 +92,7 @@ const login = async() => {
 const url = "ws://localhost:9222/devtools/browser/a5e90073-bd04-4f73-ab37-208aa46a93c4"
 const browser = await pupeteer.launch({headless:'new',
   browserWSEndpoint:url,
-  args: ["--no-sandbox"]
+  // args: ["--no-sandbox"]
   // executablePath:"C:/Program Files (x86)/AVAST Software/Browser/Application/AvastBrowser.exe"
   // executablePath:"C:/Program Files/Google/Chrome/Application/chrome.exe"
   // executablePath:"C:/Users/Sharma/AppDataLocal/Programs/Opera/opera.exe"
@@ -118,12 +118,14 @@ const domain = "https://internshala.com/login/user"
     await page.waitForSelector('input[type="email"]')
     await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
     await page.type('input[type="password"]','Tasti$420',{delay:100})
-     await page.click('#login_submit')
-     console.log('login')
+    await delay(2000)
+    await page.click('#login_submit',{count:2,delay:1000})
+    console.log('login')
+    await delay(2000)
      
-      await page.screenshot({ path: 'fullpage.png', fullPage: true });
-
-     await page.waitForSelector("#internships_tbody")
+    
+    await page.screenshot({ path: 'fullpage.png', fullPage: true });
+    await page.waitForSelector("#internships_tbody")
 
       const Data = await Tmp.find({finished:{$ne: new Date().getDate()}}).sort({})
       console.log(Data.length)
