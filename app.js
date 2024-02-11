@@ -1,8 +1,13 @@
-const pupeteer = require("puppeteer")
+// const pupeteer = require("puppeteer")
 const express = require("express")
 const app = express()
 const cron = require("node-cron")
 const mongoose = require("mongoose")
+const pupeteer = require('puppeteer-extra')
+
+// Add stealth plugin and use defaults (all tricks to hide puppeteer usage)
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+pupeteer.use(StealthPlugin())
 
 require("dotenv").config()
 function delay(time) {
