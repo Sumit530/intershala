@@ -135,17 +135,23 @@ const domain = "https://internshala.com/login/user"
     isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
     while(isLoged == false){
       
-      await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
-      await delay(3000)
-      await page.waitForSelector("#employer")
-    await page.click("#employer")
-    await page.waitForSelector('input[type="email"]')
-    await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
-    await page.type('input[type="password"]','Tasti$420',{delay:100})
+    //   // await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
+    //   await delay(3000)
+    //   await page.waitForSelector("#employer")
+    // await page.click("#employer")
+    // await page.waitForSelector('input[type="email"]')
+    // await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
+    // await page.type('input[type="password"]','Tasti$420',{delay:100})
+    //  await delay(2000)
+    // await page.click('#login_submit',{count:2,delay:1000})
+    // console.log('login')
     await delay(2000)
-    await page.click('#login_submit',{count:2,delay:1000})
-    console.log('login')
-    await delay(2000)
+    await page.evaluate(() => {
+      for (const btn of document.querySelectorAll('.close_action')) {
+        console.log(btn)
+         btn.click();
+      }
+    });
     console.log('looking')
       // await page.waitForSelector(".close_action")
       // await page.click('.close_action',{count:1,delay:1000})
