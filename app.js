@@ -112,13 +112,14 @@ const domain = "https://internshala.com/login/user"
     await page.goto(domain, {
       timeout: 3000000
     });
+    console.log('opend')
     await page.waitForSelector("#employer")
     await page.click("#employer")
     await page.waitForSelector('input[type="email"]')
     await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
     await page.type('input[type="password"]','Tasti$420',{delay:100})
      await page.click('#login_submit')
-     
+     console.log('login')
      await page.waitForSelector("#internships_tbody")
 
       const Data = await Tmp.find({finished:{$ne: new Date().getDate()}}).sort({})
