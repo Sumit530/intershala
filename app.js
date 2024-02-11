@@ -128,7 +128,7 @@ const domain = "https://internshala.com/login/user"
     await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
     await page.type('input[type="password"]','Tasti$420',{delay:100})
     await delay(2000)
-    await page.click('#login_submit',{count:2,delay:1000})
+    await page.click('#login_submit',{count:1,delay:1000})
     console.log('login')
     await delay(2000)
     console.log('looking')
@@ -143,16 +143,18 @@ const domain = "https://internshala.com/login/user"
     // await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
     // await page.type('input[type="password"]','Tasti$420',{delay:100})
     //  await delay(2000)
-    // await page.click('#login_submit',{count:2,delay:1000})
     // console.log('login')
     await delay(2000)
     await page.evaluate(() => {
       for (const btn of document.querySelectorAll('.close_action')) {
         console.log(btn)
-         btn.click();
+        btn.click();
       }
     });
     console.log('looking')
+    await delay(2000)
+    await page.screenshot({ path: 'fullpage.png', fullPage: true });
+    await page.click('#login_submit',{count:2,delay:1000})
       // await page.waitForSelector(".close_action")
       // await page.click('.close_action',{count:1,delay:1000})
       
@@ -163,10 +165,10 @@ const domain = "https://internshala.com/login/user"
       // await delay(2000)
       // await page.click('#login_submit',{count:2,delay:1000})
       // console.log('login')
-      // await delay(2000)
+      await delay(2000)
       // console.log('looking')
       // console.log(await page.content());
-      await page.screenshot({ path: 'fullpage.png', fullPage: true });
+      // await page.screenshot({ path: 'fullpage.png', fullPage: true });
 
       isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
       // pupeteer.Keyboard.press('Escape')
