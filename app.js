@@ -446,6 +446,7 @@ let repeat = 0
     }
     working = false 
     await browser.close()
+    console.log('closed browser')
 
   }catch(err){
     working = false 
