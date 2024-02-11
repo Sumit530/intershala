@@ -129,9 +129,10 @@ const domain = "https://internshala.com/login/user"
       await page.waitForSelector(".close_action")
       
 
-        
-        // await page.click('.close_action',{count:1,delay:1000})
-        pupeteer.Keyboard.press('Escape')
+      
+      // await page.click('.close_action',{count:1,delay:1000})
+      // pupeteer.Keyboard.press('Escape')
+      await page.keyboard.press('Escape');
 
         console.log('closed')
       
@@ -210,14 +211,19 @@ const domain = "https://internshala.com/login/user"
         const FilteredElement  = await page.waitForSelector("#filtered_results_count") 
        let FilteredCount = await FilteredElement.evaluate((el) => el.textContent)
 console.log(FilteredCount)
+let repeat = 0
      
      do {
-      preCount = await getCount(page);
+      let preCount = await getCount(page);
       console.log(preCount)
       await scrollDown(page);
       await delay(1000)
-      postCount = await getCount(page);
-    } while (postCount < FilteredCount);
+      let postCount = await getCount(page);
+      if(preCount == postCount){
+        repeat += 1
+      }
+      
+    } while ((postCount < FilteredCount) || repeat>4);
 
     await delay(2000)
     await page.evaluate(() => {
