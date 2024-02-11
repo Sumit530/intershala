@@ -92,7 +92,7 @@ const login = async() => {
 const url = "ws://localhost:9222/devtools/browser/a5e90073-bd04-4f73-ab37-208aa46a93c4"
 const browser = await pupeteer.launch({headless:'new',
   browserWSEndpoint:url,
-  // args: ["--no-sandbox"]
+   args: ["--no-sandbox"]
   // executablePath:"C:/Program Files (x86)/AVAST Software/Browser/Application/AvastBrowser.exe"
   // executablePath:"C:/Program Files/Google/Chrome/Application/chrome.exe"
   // executablePath:"C:/Users/Sharma/AppDataLocal/Programs/Opera/opera.exe"
