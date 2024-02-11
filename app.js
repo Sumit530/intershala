@@ -140,6 +140,7 @@ const domain = "https://internshala.com/login/user"
       console.log('login')
       await delay(2000)
       console.log('looking')
+      console.log(await page.content());
       await page.screenshot({ path: 'fullpage.png', fullPage: true });
       isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
       // pupeteer.Keyboard.press('Escape')
@@ -219,16 +220,16 @@ console.log(FilteredCount)
 let repeat = 0
      
      do {
-      let preCount = await getCount(page);
+       preCount = await getCount(page);
       console.log(preCount)
       await scrollDown(page);
       await delay(1000)
-      let postCount = await getCount(page);
+       postCount = await getCount(page);
       if(preCount == postCount){
-        repeat += 1
+        repeat = repeat+1
       }
       
-    } while ((postCount < FilteredCount) || repeat>4);
+    } while (postCount < FilteredCount || repeat<4);
 
     await delay(2000)
     await page.evaluate(() => {
