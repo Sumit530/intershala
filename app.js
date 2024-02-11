@@ -114,14 +114,14 @@ const domain = "https://internshala.com/login/user"
     });
     console.log('opend')
     var isLoged = false
+    
+    await page.waitForSelector("#employer")
+    await page.click("#employer")
+    await page.waitForSelector('input[type="email"]')
+    await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
+    await page.type('input[type="password"]','Tasti$420',{delay:100})
+    await delay(2000)
     while(isLoged == false){
-
-      await page.waitForSelector("#employer")
-      await page.click("#employer")
-      await page.waitForSelector('input[type="email"]')
-      await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
-      await page.type('input[type="password"]','Tasti$420',{delay:100})
-      await delay(2000)
       await page.click('#login_submit',{count:2,delay:1000})
       console.log('login')
       await delay(2000)
@@ -132,6 +132,7 @@ const domain = "https://internshala.com/login/user"
       console.log('closed')
       isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
       console.log('trying')
+      await delay(2000)
     }
     
     await page.waitForSelector("#internships_tbody")
