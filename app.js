@@ -8,6 +8,8 @@ const pupeteer = require('puppeteer-extra')
 // Add stealth plugin and use defaults (all tricks to hide puppeteer usage)
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 pupeteer.use(StealthPlugin())
+puppeteer.use(require('puppeteer-extra-plugin-anonymize-ua')())
+
 
 require("dotenv").config()
 function delay(time) {
@@ -110,9 +112,9 @@ const browser = await pupeteer.launch({headless:'new',
     console.log('started')
 const domain = "https://internshala.com/login/user"
     // navigate to a website and set the viewport
-    await page.setUserAgent(
-  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36'
-);
+//     await page.setUserAgent(
+//   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36'
+// );
     await page.setViewport({ width: 1520, height: 1080 });
     await page.goto(domain, {
       timeout: 3000000
