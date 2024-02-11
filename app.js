@@ -130,9 +130,9 @@ const domain = "https://internshala.com/login/user"
       
 
       
-      // await page.click('.close_action',{count:1,delay:1000})
       // pupeteer.Keyboard.press('Escape')
       await page.keyboard.press('Escape');
+       await page.click('.close_action',{count:1,delay:1000})
 
         console.log('closed')
       
