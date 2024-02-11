@@ -121,26 +121,31 @@ const domain = "https://internshala.com/login/user"
     await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
     await page.type('input[type="password"]','Tasti$420',{delay:100})
     await delay(2000)
+    await page.click('#login_submit',{count:2,delay:1000})
+    console.log('login')
+    await delay(2000)
+    console.log('looking')
+    isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
     while(isLoged == false){
+      
+      await page.waitForSelector(".close_action")
+      await page.click('.close_action',{count:1,delay:1000})
+      
+      console.log('closed')
+      await delay(2000)
+      
+      console.log('trying')
+      await delay(2000)
       await page.click('#login_submit',{count:2,delay:1000})
       console.log('login')
       await delay(2000)
       console.log('looking')
-      await page.waitForSelector(".close_action")
-      
-
-      
-      // pupeteer.Keyboard.press('Escape')
-      await page.keyboard.press('Escape');
-       await page.click('.close_action',{count:1,delay:1000})
-
-        console.log('closed')
-      
-        await delay(2000)
-        await page.screenshot({ path: 'fullpage.png', fullPage: true });
+      await page.screenshot({ path: 'fullpage.png', fullPage: true });
       isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
-      console.log('trying')
-      await delay(2000)
+      // pupeteer.Keyboard.press('Escape')
+      // await page.keyboard.press('Escape');
+
+      
 
     }
     
