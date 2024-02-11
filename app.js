@@ -8,7 +8,7 @@ const pupeteer = require('puppeteer-extra')
 // Add stealth plugin and use defaults (all tricks to hide puppeteer usage)
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 pupeteer.use(StealthPlugin())
-puppeteer.use(require('puppeteer-extra-plugin-anonymize-ua')())
+pupeteer.use(require('puppeteer-extra-plugin-anonymize-ua')())
 
 
 require("dotenv").config()
