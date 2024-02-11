@@ -90,7 +90,7 @@ if(working == false){
 
 const login = async() => {
 const url = "ws://localhost:9222/devtools/browser/a5e90073-bd04-4f73-ab37-208aa46a93c4"
-const browser = await pupeteer.launch({headless:'new',
+const browser = await pupeteer.launch({headless:false,
   browserWSEndpoint:url,
    args: ["--no-sandbox"]
   // executablePath:"C:/Program Files (x86)/AVAST Software/Browser/Application/AvastBrowser.exe"
@@ -128,12 +128,19 @@ const domain = "https://internshala.com/login/user"
       console.log('looking')
       await page.waitForSelector(".close_action")
       
-      await page.click('.close_action',{count:1,delay:1000})
-      console.log('closed')
+
+        
+        // await page.click('.close_action',{count:1,delay:1000})
+        pupeteer.Keyboard.press('Escape')
+
+        console.log('closed')
+      
+        await delay(2000)
+        await page.screenshot({ path: 'fullpage.png', fullPage: true });
       isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
       console.log('trying')
       await delay(2000)
-      await page.screenshot({ path: 'fullpage.png', fullPage: true });
+
     }
     
     await page.waitForSelector("#internships_tbody")
