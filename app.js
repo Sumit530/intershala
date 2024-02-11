@@ -4,6 +4,7 @@ const app = express()
 const cron = require("node-cron")
 const mongoose = require("mongoose")
 const pupeteer = require('puppeteer-extra')
+const moment = require('moment')
 
 // Add stealth plugin and use defaults (all tricks to hide puppeteer usage)
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
@@ -135,6 +136,8 @@ const domain = "https://internshala.com/login/user"
     console.log('looking')
     isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
     console.log(new Date())
+    console.log(moment().utc())
+    console.log(moment().local())
     while(isLoged == false){
       
     //   // await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
