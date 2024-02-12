@@ -111,7 +111,9 @@ const browser = await pupeteer.launch({headless:'new',
     // const context = await browser.createIncognitoBrowserContext();
     const page = await browser.newPage();
     console.log('started')
-const domain = "https://internshala.com/login/user"
+    // https://internshala.com/login/employer
+// const domain = "https://internshala.com/login/user"
+ const domain = "https://internshala.com/hire-talent"
     // navigate to a website and set the viewport
 //     await page.setUserAgent(
 //   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36'
@@ -124,13 +126,16 @@ const domain = "https://internshala.com/login/user"
     console.log('opend')
     var isLoged = false
     
-    await page.waitForSelector("#employer")
-    await page.click("#employer")
+    await page.waitForSelector("#header_login_button")
+    await page.click("#header_login_button")
+    // await page.waitForSelector("#employer")
+    // await page.click("#employer")
     await page.waitForSelector('input[type="email"]')
     await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
     await page.type('input[type="password"]','Tasti$420',{delay:100})
     await delay(2000)
-    await page.click('#login_submit',{count:1,delay:1000})
+    // await page.click('#login_submit',{count:1,delay:1000})
+    await page.click('#modal_login_submit',{count:1,delay:1000})
     console.log('login')
     await delay(2000)
     console.log('looking')
