@@ -113,7 +113,8 @@ const browser = await pupeteer.launch({headless:'new',
     console.log('started')
     // https://internshala.com/login/employer
 // const domain = "https://internshala.com/login/user"
- const domain = "https://internshala.com/hire-talent"
+//  const domain = "https://internshala.com/hire-talent"
+ const domain = "https://internshala.com/employer"
     // navigate to a website and set the viewport
 //     await page.setUserAgent(
 //   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36'
@@ -126,16 +127,16 @@ const browser = await pupeteer.launch({headless:'new',
     console.log('opend')
     var isLoged = false
     
-    await page.waitForSelector("#header_login_button")
-    await page.click("#header_login_button")
+    // await page.waitForSelector("#header_login_button")
+    // await page.click("#header_login_button")
     // await page.waitForSelector("#employer")
     // await page.click("#employer")
     await page.waitForSelector('input[type="email"]')
     await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
     await page.type('input[type="password"]','Tasti$420',{delay:100})
     await delay(2000)
-    // await page.click('#login_submit',{count:1,delay:1000})
-    await page.click('#modal_login_submit',{count:1,delay:1000})
+    await page.click('#login_submit',{count:1,delay:1000})
+    // await page.click('#modal_login_submit',{count:1,delay:1000})
     console.log('login')
     await delay(10000)
     console.log('looking')
@@ -163,23 +164,23 @@ const browser = await pupeteer.launch({headless:'new',
     });
     console.log('looking')
     await delay(2000)
+    await page.click('#login_submit',{count:2,delay:1000})
+    // await page.click('#modal_login_submit',{count:2,delay:1000})
+    // await page.waitForSelector(".close_action")
+    // await page.click('.close_action',{count:1,delay:1000})
+    
+    // console.log('closed')
+    // await delay(2000)
+    
+    // console.log('trying')
+    // await delay(2000)
+    // console.log('login')
+    await delay(2000)
+    // console.log('looking')
+    // console.log(await page.content());
+    // await page.screenshot({ path: 'fullpage.png', fullPage: true });
     await page.screenshot({ path: 'fullpage.png', fullPage: true });
-    await page.click('#modal_login_submit',{count:2,delay:1000})
-      // await page.waitForSelector(".close_action")
-      // await page.click('.close_action',{count:1,delay:1000})
-      
-      // console.log('closed')
-      // await delay(2000)
-      
-      // console.log('trying')
-      // await delay(2000)
-      // await page.click('#login_submit',{count:2,delay:1000})
-      // console.log('login')
-      await delay(2000)
-      // console.log('looking')
-      // console.log(await page.content());
-      // await page.screenshot({ path: 'fullpage.png', fullPage: true });
-
+    
       isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
       // pupeteer.Keyboard.press('Escape')
       // await page.keyboard.press('Escape');
