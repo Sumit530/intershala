@@ -137,7 +137,7 @@ const browser = await pupeteer.launch({headless:'new',
     // await page.click('#login_submit',{count:1,delay:1000})
     await page.click('#modal_login_submit',{count:1,delay:1000})
     console.log('login')
-    await delay(3000)
+    await delay(10000)
     console.log('looking')
     isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
     console.log(new Date())
@@ -164,7 +164,7 @@ const browser = await pupeteer.launch({headless:'new',
     console.log('looking')
     await delay(2000)
     await page.screenshot({ path: 'fullpage.png', fullPage: true });
-    await page.click('#login_submit',{count:2,delay:1000})
+    await page.click('#modal_login_submit',{count:2,delay:1000})
       // await page.waitForSelector(".close_action")
       // await page.click('.close_action',{count:1,delay:1000})
       
