@@ -137,7 +137,7 @@ const browser = await pupeteer.launch({headless:'new',
     // await page.click('#login_submit',{count:1,delay:1000})
     await page.click('#modal_login_submit',{count:1,delay:1000})
     console.log('login')
-    await delay(2000)
+    await delay(3000)
     console.log('looking')
     isLoged = await page.$eval("#internships_tbody", () => true).catch(() => false) 
     console.log(new Date())
@@ -460,6 +460,7 @@ let repeat = 0
 
   }catch(err){
     working = false 
+    console.log(err)
     browser.close()
   } 
           // await page.click('#select_all')
