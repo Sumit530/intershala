@@ -113,6 +113,15 @@ const browser = await pupeteer.launch({headless:'new',
     console.log('started')
     // https://internshala.com/login/employer
  const domain = "https://internshala.com/login/user"
+    // page.on('request',(req)=>{
+    //   let url = req.url()
+    //   console.log(url)
+    // })
+    page.on('response',(res)=>{
+      const url = res.url()
+      console.log('url->',url)
+      console.log('resp->',JSON.stringify(res.json()))
+    })
 //  const domain = "https://internshala.com/hire-talent"
 //  const domain = "https://internshala.com/employer"
     // navigate to a website and set the viewport
