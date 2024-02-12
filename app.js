@@ -112,9 +112,9 @@ const browser = await pupeteer.launch({headless:'new',
     const page = await browser.newPage();
     console.log('started')
     // https://internshala.com/login/employer
-// const domain = "https://internshala.com/login/user"
+ const domain = "https://internshala.com/login/user"
 //  const domain = "https://internshala.com/hire-talent"
- const domain = "https://internshala.com/employer"
+//  const domain = "https://internshala.com/employer"
     // navigate to a website and set the viewport
 //     await page.setUserAgent(
 //   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36'
@@ -129,8 +129,8 @@ const browser = await pupeteer.launch({headless:'new',
     
     // await page.waitForSelector("#header_login_button")
     // await page.click("#header_login_button")
-    // await page.waitForSelector("#employer")
-    // await page.click("#employer")
+    await page.waitForSelector("#employer")
+     await page.click("#employer")
     await page.waitForSelector('input[type="email"]')
     await page.type('input[type="email"]','tastemedia22@gmail.com',{delay:100})
     await page.type('input[type="password"]','Tasti$420',{delay:100})
