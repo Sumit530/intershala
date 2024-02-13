@@ -98,7 +98,7 @@ if(working == false){
 
 const login = async() => {
 const url = "ws://localhost:9222/devtools/browser/a5e90073-bd04-4f73-ab37-208aa46a93c4"
-const browser = await pupeteer.launch({headless:'new',
+const browser = await pupeteer.launch({headless:false,
    browserWSEndpoint:url,
    args: ["--no-sandbox"]
   // executablePath:"C:/Program Files (x86)/AVAST Software/Browser/Application/AvastBrowser.exe"
@@ -117,11 +117,14 @@ const browser = await pupeteer.launch({headless:'new',
     //   let url = req.url()
     //   console.log(url)
     // })
-    page.on('response',(res)=>{
-      const url = res.url()
-      console.log('url->',url)
-      console.log('resp->',JSON.stringify(res.json()))
-    })
+    // page.on('response',async(res)=>{
+    //   const url = res.url()
+    //   if(url.includes('https://internshala.com')){
+
+    //     console.log('url->',url)
+    //     console.log('resp->',JSON.stringify(await res.json()))
+    //   }
+    // })
 //  const domain = "https://internshala.com/hire-talent"
 //  const domain = "https://internshala.com/employer"
     // navigate to a website and set the viewport
@@ -349,14 +352,17 @@ let repeat = 0
           const FilteredElement  = await page.waitForSelector("#filtered_results_count") 
           let FilteredCount = await FilteredElement.evaluate((el) => el.textContent)
    console.log(FilteredCount)
-        
+        let repeat = 0
         do {
          preCount = await getCount(page);
          console.log(preCount)
          await scrollDown(page);
          await delay(1000)
          postCount = await getCount(page);
-       } while (postCount < FilteredCount);
+         if(preCount == postCount){
+          repeat = repeat+1
+        }
+       } while (postCount < FilteredCount && repeat<4);
        await page.evaluate(() => {
         for (const checkbox of document.querySelectorAll('.select_individual_application')) {
           console.log(checkbox)
@@ -481,12 +487,12 @@ let repeat = 0
         
         
 }
+login()
 cron.schedule("* 10 * * *",async()=>{
    try{
     if(working != true){
 
       working = true
-      await login()
     }
    }catch(error){
       console.log(error)
