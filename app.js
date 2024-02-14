@@ -22,7 +22,7 @@ const multer = require("multer")
 
 global.working = false 
 
-
+var ErrorFound = false
 mongoose.connect(process.env.MONGO_URL,{
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -247,10 +247,15 @@ const browser = await pupeteer.launch({headless:false,
 
             // await (await page.$('#skill_filter')).press('Tab');
             // await delay(500)
-            await (await page.$('#degree_filter')).type(Data[e].degree.substring(0,7),{delay:500})
-            await page.waitForSelector("#ui-id-3")
-            await delay(3000)
-            await (await page.$('#degree_filter')).press('Tab');
+            let degrees= Data[e].degree.split(",")
+            for(let i=0;i<degrees.length;i++){
+              await (await page.$('#degree_filter')).type(degrees[i].substring(0,8),{delay:500})
+              await page.waitForSelector("#ui-id-3")
+              await delay(3000)
+              await (await page.$('#degree_filter')).press('Tab');
+              
+             }
+           
           }
           
           await delay(500)
@@ -475,7 +480,8 @@ let repeat = 0
     console.log('closed browser')
 
   }catch(err){
-    working = false 
+    working = false
+    ErrorFound = true 
     console.log(err)
     browser.close()
   } 
@@ -498,6 +504,14 @@ cron.schedule("* 10 * * *",async()=>{
       console.log(error)
       working = false
    }
+})
+cron.schedule('*/2 * * * *',async()=>{
+  console.log('checking')
+  if(ErrorFound == true){
+    ErrorFound = false
+    console.log('found')
+    login()
+  }
 })
 
 
