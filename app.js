@@ -78,6 +78,21 @@ app.post("/deletedata",multer().array(),async(req,res)=>{
     return res.json({status:0,message:"Internal Server Error"})
   }
 })
+app.post("/resetData",multer().array(),async(req,res)=>{
+  try{
+
+    const data = await Tmp.find({_id:req.body.id})
+    if(data.length>0){
+      await Tmp.findOneAndUpdate({_id:req.body.id},{finished:moment().day()-1})
+      return res.json({status:1,message:"restart Successfully"})
+    }else{
+      return res.json({status:0,message:"Data Not Found"})
+    }
+  }catch(err){
+    console.log(err)
+    return res.json({status:0,message:"Internal Server Error"})
+  }
+})
 app.post("/restart",multer().array(),async(req,res)=>{
   try{
     console.log(working)
@@ -100,7 +115,7 @@ const login = async() => {
 const url = "ws://localhost:9222/devtools/browser/a5e90073-bd04-4f73-ab37-208aa46a93c4"
 const browser = await pupeteer.launch({headless:false,
    browserWSEndpoint:url,
-   args: ["--no-sandbox"]
+   args: ["--no-sandbox",]
   // executablePath:"C:/Program Files (x86)/AVAST Software/Browser/Application/AvastBrowser.exe"
   // executablePath:"C:/Program Files/Google/Chrome/Application/chrome.exe"
   // executablePath:"C:/Users/Sharma/AppDataLocal/Programs/Opera/opera.exe"
@@ -493,7 +508,7 @@ let repeat = 0
         
         
 }
-login()
+// login()
 cron.schedule("* 10 * * *",async()=>{
    try{
     if(working != true){

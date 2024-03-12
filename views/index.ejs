@@ -39,7 +39,7 @@
                     <th scope="col">SKILL</th>
                     <th scope="col">DEGREE</th>
                     <th scope="col">STATUS</th>
-                    <th scope="col">Action</th>
+                    <th scope="col text-center" style="text-align: center;">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -56,7 +56,11 @@
                         <td><%= item?.skill?.toString() %></td>
                         <td><%= item?.degree %></td>
                         <td><%= item?.current == true ? working == true ? 'working' :'Error' : item?.finished == new Date().getDate() ?  'finished' : 'not started'  %></td>
-                        <td><button class="btn btn-danger" name="delete" onclick="del('<%= item._id %>')">Delete</button></td>
+                        <td>
+                            <button class="btn btn-success" name="delete" onclick="reset('<%= item._id %>')">Restart</button>
+                            <button class="btn btn-danger" name="delete" onclick="del('<%= item._id %>')">Delete</button>
+                        
+                        </td>
                     </tr>
                 <% 
             })
@@ -127,6 +131,20 @@
                             alert("Server Error")
 
                         }   
+                    }
+                    async function reset (id){
+                        const formdata = new FormData()
+                        formdata.append("id",id)
+                        const fetchdata = await fetch(`/resetData`,{
+                            method:"post",
+                            body:formdata
+                        })
+                        const resp = await fetchdata.json()
+                        if(resp.status == 1){
+                            alert("restarted  successfully")
+                            window.location.reload()
+                        }
+                           
                     }
             </script>
 </body>
