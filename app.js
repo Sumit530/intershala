@@ -274,9 +274,19 @@ const browser = await pupeteer.launch({headless:false,
           }
           
           await delay(500)
+          console.log('called----function before')
           await page.$eval('input[name="assignment_not_sent_app_received_filter"]', check => check.checked = true);
-          await page.click('#apply_filter')
+          console.log('called----function mid')
+          var applyButton =  await page.$eval("#apply_filter", () => true).catch(() => false)
+          if(applyButton){
+            
+            await page.click('#apply_filter_new')
+          }else{
+            await page.click('#apply_filter_new')
+
+          }
           await delay(3000)
+          console.log('called----function')
           
         }
 
@@ -361,10 +371,10 @@ let repeat = 0
        var existSkill1 = await countElement1.evaluate((el) => el.textContent)
      if(parseInt(existSkill1)>0){
 
-       await page.waitForSelector(".clear_filter_form_only")
-       await page.click(".clear_filter_form_only")
+       await page.waitForSelector("#filters_button_inner_container_new .clear_filter_form_only")
+       await page.click("#filters_button_inner_container_new .clear_filter_form_only")
        await delay(500)
-       await page.click('#apply_filter')
+       await page.click('#apply_filter_new')
        await delay(5000)
        
        exists = await page.$eval("div.individual_application", () => false).catch(() => true)
@@ -431,7 +441,7 @@ let repeat = 0
         }
         await page.$eval('input[name="assignment_not_sent_app_received_filter"]', check => check.checked = true);
         await delay(500)
-        await page.click('#apply_filter')
+        await page.click('#apply_filter_new')
         await delay(2000)    
       }
      var existApplication = await page.$eval("div.individual_application", () => false).catch(() => true)
@@ -467,7 +477,7 @@ let repeat = 0
      await delay(4000)
      await page.$eval('input[name="assignment_not_sent_shortlisted_filter"]', check => check.checked = true);
      await delay(2000)
-     await page.click('#apply_filter')
+     await page.click('#apply_filter_new')
      await delay(1000) 
    
      var existSort = await page.$eval("div.individual_application", () => false).catch(() => true)
